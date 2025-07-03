@@ -259,7 +259,6 @@ def show_top5(message):
         text += f"{i}. {uname} — {balance}🪙 PulseCoins\n"
 
     bot.send_message(message.chat.id, text, parse_mode='HTML')
-
         return
 
     text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>\n"
