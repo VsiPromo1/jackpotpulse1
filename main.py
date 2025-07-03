@@ -231,16 +231,13 @@ bot.send_message(
 def invite_friend(message):
     user_id = message.from_user.id
     ref_link = f"https://t.me/JackpotPulse_bot?start={user_id}"
-    bot.send_message(message.chat.id,
-bot.send_message(
-    message.chat.id,
-    f"<b>👯 Запроси друзів!</b>\n"
-    f"🔗 Твоє посилання: {ref_link}\n"
-    f"✅ За кожного — +20 PulseCoins\n🎯 Активність 3 дні — ще +10",
-    reply_markup=main_keyboard
-)
-
-
+    bot.send_message(
+        message.chat.id,
+        f"<b>👯 Запроси друзів!</b>\n"
+        f"🔗 Твоє посилання: {ref_link}\n"
+        f"✅ За кожного — +20 PulseCoins\n🎯 Активність 3 дні — ще +10",
+        reply_markup=main_keyboard
+    )
 
 @bot.message_handler(func=lambda m: m.text == '✨ Топ 5 гравців')
 def show_top5(message):
@@ -249,6 +246,20 @@ def show_top5(message):
 
     if not top5:
         bot.send_message(message.chat.id, "<b>❌ Поки що немає гравців.</b>", parse_mode='HTML')
+        return
+
+    text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>\n"
+    for i, (uid, balance) in enumerate(top5, start=1):
+        try:
+            user_info = bot.get_chat(uid)
+            uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
+        except Exception:
+            uname = f"<code>{uid}</code>"
+
+        text += f"{i}. {uname} — {balance}🪙 PulseCoins\n"
+
+    bot.send_message(message.chat.id, text, parse_mode='HTML')
+
         return
 
     text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>\n"
