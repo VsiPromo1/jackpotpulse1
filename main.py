@@ -415,7 +415,7 @@ def run_lottery(message):
     random.shuffle(participants)
     winners = participants[:5]
 
-    result = "<b>🎉 Результати розіграшу:</b>
+    result = "<b>🎉 Результати розіграшу:</b>"
 
     for idx, uid in enumerate(winners, start=1):
         try:
