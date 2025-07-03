@@ -351,14 +351,16 @@ def callback_check_subs(call):
 @bot.message_handler(func=lambda m: m.text == '📣 Додати свій канал у Jackpot Pulse')
 def add_channel_request(message):
     bot.send_message(
-        message.chat.id,
-        "<b>📣 Хочеш додати свій канал у Jackpot Pulse?</b>
-        "Звертайся до наших менеджерів:
-        "👤 @vsi_promo_admin
-        "👤 @oleksandra_managerr
-        "Вони допоможуть тобі з рекламою та співпрацею!",
-        reply_markup=main_keyboard
-    )
+    message.chat.id,
+    "<b>📣 Хочеш додати свій канал у Jackpot Pulse?</b>\n"
+    "Звертайся до наших менеджерів:\n"
+    "👤 @vsi_promo_admin\n"
+    "👤 @oleksandra_managerr\n"
+    "Вони допоможуть тобі з рекламою та співпрацею!",
+    reply_markup=main_keyboard,
+    parse_mode='HTML'
+)
+
 
 
 @bot.message_handler(commands=['send_promo'])
