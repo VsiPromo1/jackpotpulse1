@@ -243,7 +243,7 @@ bot.send_message(
 
 
 @bot.message_handler(func=lambda m: m.text == '⭐️ Топ 5 гравців')
-def show_top5(message):
+    def show_top5(message):
     cursor.execute("SELECT user_id, balance FROM users ORDER BY balance DESC LIMIT 5")
     top5 = cursor.fetchall()
 
