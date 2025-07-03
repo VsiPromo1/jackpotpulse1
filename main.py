@@ -165,7 +165,7 @@ def daily_bonus(message):
 
     bot.send_message(message.chat.id, f"<b>🎉 Плюс удачі {bonus} фартів! 🎉</b>", reply_markup=main_keyboard)
     bot.send_message(message.chat.id,
-        f"<b>🔮 Пульс удачі б’ється рівно 👊</b>
+        "<b>🔮 Пульс удачі б’ється рівно 👊</b>
 "
         f"<b>+{bonus} PulseCoins 💸</b>
 "
