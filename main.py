@@ -197,9 +197,12 @@ def fart_card(message):
 
     save_user(user_id, last_card=now, last_active=now, tickets=tickets, balance=balance)
 
-    bot.send_message(message.chat.id, f"<b>🃏 Твоя фарт-картка показує:</b>
+bot.send_message(
+    message.chat.id,
+    f"<b>🃏 Твоя фарт-картка показує:</b>\n\n{text}",
+    reply_markup=main_keyboard
+)
 
-{text}", reply_markup=main_keyboard)
 
 
 @bot.message_handler(func=lambda m: m.text == '📊 Мій профіль')
