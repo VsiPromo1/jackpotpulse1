@@ -163,14 +163,12 @@ def daily_bonus(message):
 
     save_user(user_id, balance=new_balance, last_bonus=now, streak=new_streak, last_active=now)
 
-    bot.send_message(message.chat.id, f"<b>🎉 Плюс удачі {bonus} фартів! 🎉</b>", reply_markup=main_keyboard)
-    bot.send_message(message.chat.id,
-        "<b>🔮 Пульс удачі б’ється рівно 👊</b>
-"
-        f"<b>+{bonus} PulseCoins 💸</b>
-"
-        f"<b>🔥 Стрік:</b> {new_streak} дні(в)",
-        reply_markup=main_keyboard)
+bot.send_message(message.chat.id,
+    f"<b>🔮 Пульс удачі б’ється рівно 👊</b>\n"
+    f"<b>+{bonus} PulseCoins 💸</b>\n"
+    f"<b>🔥 Стрік:</b> {new_streak} дні(в)",
+    reply_markup=main_keyboard)
+
 
 
 @bot.message_handler(func=lambda m: m.text == '🃏 Фарт-картка')
