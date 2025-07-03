@@ -242,26 +242,27 @@ bot.send_message(
 
 
 
-@bot.message_handler(func=lambda m: m.text == '⭐️ Топ 5 гравців')
-    def show_top5(message):
+@bot.message_handler(func=lambda m: m.text == '✨ Топ 5 гравців')
+def show_top5(message):
     cursor.execute("SELECT user_id, balance FROM users ORDER BY balance DESC LIMIT 5")
     top5 = cursor.fetchall()
 
     if not top5:
-        bot.send_message(message.chat.id, "<b>❌ Поки що немає гравців.</b>")
+        bot.send_message(message.chat.id, "<b>❌ Поки що немає гравців.</b>", parse_mode='HTML')
         return
 
-text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>\n"
+    text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>\n"
+    for i, (uid, balance) in enumerate(top5, start=1):
+        try:
+            user_info = bot.get_chat(uid)
+            uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
+        except Exception:
+            uname = f"<code>{uid}</code>"
 
-for i, (uid, balance) in enumerate(top5, start=1):
-    try:
-        user_info = bot.get_chat(uid)
-        uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
-    except Exception:
-        uname = f"<code>{uid}</code>"
-    text += f"{i}. {uname} — <b>{balance}</b> PulseCoins\n"
+        text += f"{i}. {uname} — {balance}🪙 PulseCoins\n"
 
-bot.send_message(message.chat.id, text, parse_mode='HTML')
+    bot.send_message(message.chat.id, text, parse_mode='HTML')
+
 
 
     bot.send_message(message.chat.id, text)
