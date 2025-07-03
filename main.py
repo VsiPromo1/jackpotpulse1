@@ -252,16 +252,13 @@ def show_top5(message):
         return
 
     text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>
-
-"
     for i, (uid, balance) in enumerate(top5, start=1):
         try:
             user_info = bot.get_chat(uid)
             uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
         except:
             uname = f"<code>{uid}</code>"
-        text += f"{i}. {uname} — <b>{balance}</b> PulseCoins
-"
+        text += f"{i}. {uname} — <b>{balance}</b> PulseCoins"
 
     bot.send_message(message.chat.id, text)
 
@@ -278,21 +275,13 @@ def lottery(message):
 
     info = (
         "<b>🏆 Jackpot Pulse — Розіграші</b>
-
-"
         "🎁 Приз: 500 грн - (5 переможців по 100 грн)
 📆 Щовівторка о 19:00
-
-"
         "🔸 Як взяти участь:
 • 1000 PulseCoins
 • або 25 друзів
 • або <b>15 квитків</b> 🎟
-
-"
         f"🎟 У тебе: {tickets} квитків
-
-"
         "Натисни кнопку нижче, щоб взяти участь!"
     )
     markup = telebot.types.InlineKeyboardMarkup()
@@ -357,15 +346,9 @@ def add_channel_request(message):
     bot.send_message(
         message.chat.id,
         "<b>📣 Хочеш додати свій канал у Jackpot Pulse?</b>
-
-"
         "Звертайся до наших менеджерів:
-"
         "👤 @vsi_promo_admin
-"
         "👤 @oleksandra_managerr
-
-"
         "Вони допоможуть тобі з рекламою та співпрацею!",
         reply_markup=main_keyboard
     )
@@ -378,27 +361,13 @@ def send_promo_to_all(message):
 
     promo_text = (
         "<b>📣 УВАГА ВСІМ ВЛАСНИКАМ КАНАЛІВ!</b>
-
-"
         "⭐️ <b>Хочеш отримати безкоштовне спонсорство в Jackpot Pulse?</b> ⭐️
-
-"
         "🎯 Приведи найбільше рефералів сьогодні — і твій канал БЕЗКОШТОВНО отримає рекламу в нашому боті на 1 день! 🚀
-
-"
         "🔥 <i>Це чудовий шанс збільшити свою аудиторію і отримати крутий бонус!</i>
-
-"
         "👥 Чим більше активних підписників ти приведеш — тим більша твоя перемога!
-
-"
         "📩 Пиши менеджерам для участі:
-"
         "👤 @vsi_promo_admin
-"
         "👤 @oleksandra_managerr
-
-"
         "Не пропусти! 🎉"
     )
 
@@ -434,19 +403,15 @@ def run_lottery(message):
 
     result = "<b>🎉 Результати розіграшу:</b>
 
-"
-
     for idx, uid in enumerate(winners, start=1):
         try:
             user_info = bot.get_chat(uid)
             uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
             result += f"{idx}. {uname}
-"
             cursor.execute("UPDATE users SET lottery_participation = 0 WHERE user_id = ?", (uid,))
             conn.commit()
         except Exception as e:
             result += f"{idx}. ❌ Користувач {uid} (помилка: {e})
-"
             logging.error(f"Помилка надсилання результатів розіграшу: {uid}: {e}")
 
     bot.send_message(message.chat.id, result)
