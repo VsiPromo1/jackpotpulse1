@@ -432,16 +432,15 @@ def run_lottery(message):
 result = "<b>🎉 Результати розіграшу:</b>\n"
 
 for idx, uid in enumerate(winners, start=1):
-    try:
-        user_info = bot.get_chat(uid)
-        uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
-        result += f"{idx}. {uname}\n"
-        cursor.execute("UPDATE users SET lottery_participation = 0 WHERE user_id = ?", (uid,))
-        conn.commit()
-
-        except Exception as e:
-            result += f"{idx}. ❌ Користувач {uid} (помилка: {e})
-            logging.error(f"Помилка надсилання результатів розіграшу: {uid}: {e}")
+try:
+    user_info = bot.get_chat(uid)
+    uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
+    result += f"{idx}. {uname}\n"
+    cursor.execute("UPDATE users SET lottery_participation = 0 WHERE user_id = ?", (uid,))
+    conn.commit()
+except Exception as e:
+    result += f"{idx}. ❌ Користувач {uid} (помилка: {e})\n"
+    logging.error(f"Помилка надсилання результатів розіграшу: {uid}: {e}")
 
     bot.send_message(message.chat.id, result)
 
