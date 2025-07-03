@@ -305,9 +305,9 @@ text += f"{i}. {uname} — <b>{balance}</b> PulseCoins\n"
 
 bot.send_message(message.chat.id, text, parse_mode='HTML')
 
-    markup = telebot.types.InlineKeyboardMarkup()
-    markup.add(telebot.types.InlineKeyboardButton("✅ Взяти участь", callback_data="join_lottery"))
-    bot.send_message(message.chat.id, info, reply_markup=markup)
+markup = telebot.types.InlineKeyboardMarkup()
+markup.add(telebot.types.InlineKeyboardButton("✅ Взяти участь", callback_data="join_lottery"))
+bot.send_message(message.chat.id, info, reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "join_lottery")
