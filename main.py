@@ -232,14 +232,14 @@ def invite_friend(message):
     user_id = message.from_user.id
     ref_link = f"https://t.me/JackpotPulse_bot?start={user_id}"
     bot.send_message(message.chat.id,
-        f"<b>👯 Запроси друзів!</b>
+bot.send_message(
+    message.chat.id,
+    f"<b>👯 Запроси друзів!</b>\n"
+    f"🔗 Твоє посилання: {ref_link}\n"
+    f"✅ За кожного — +20 PulseCoins\n🎯 Активність 3 дні — ще +10",
+    reply_markup=main_keyboard
+)
 
-"
-        f"🔗 Твоє посилання: {ref_link}
-"
-        f"✅ За кожного — +20 PulseCoins
-🎯 Активність 3 дні — ще +10",
-        reply_markup=main_keyboard)
 
 
 @bot.message_handler(func=lambda m: m.text == '⭐️ Топ 5 гравців')
