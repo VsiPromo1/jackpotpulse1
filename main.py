@@ -301,7 +301,7 @@ for i, (uid, balance) in enumerate(top5, start=1):
 
 bot.send_message(message.chat.id, text, parse_mode='HTML')
 
-    text += f"{i}. {uname} — <b>{balance}</b> PulseCoins\n"
+text += f"{i}. {uname} — <b>{balance}</b> PulseCoins\n"
 
 bot.send_message(message.chat.id, text, parse_mode='HTML')
 
