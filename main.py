@@ -278,16 +278,19 @@ def lottery(message):
     tickets = user['tickets']
 
     info = (
-        "<b>🏆 Jackpot Pulse — Розіграші</b>
-        "🎁 Приз: 500 грн - (5 переможців по 100 грн)
-📆 Щовівторка о 19:00
-        "🔸 Як взяти участь:
-• 1000 PulseCoins
-• або 25 друзів
-• або <b>15 квитків</b> 🎟
-        f"🎟 У тебе: {tickets} квитків
-        "Натисни кнопку нижче, щоб взяти участь!"
-    )
+text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>\n"
+
+for i, (uid, balance) in enumerate(top5, start=1):
+    try:
+        user_info = bot.get_chat(uid)
+        uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
+    except:
+        # Просто ігноруємо будь-яку помилку
+        uname = f"<code>{uid}</code>"
+    text += f"{i}. {uname} — <b>{balance}</b> PulseCoins\n"
+
+bot.send_message(message.chat.id, text, parse_mode='HTML')
+
     markup = telebot.types.InlineKeyboardMarkup()
     markup.add(telebot.types.InlineKeyboardButton("✅ Взяти участь", callback_data="join_lottery"))
     bot.send_message(message.chat.id, info, reply_markup=markup)
