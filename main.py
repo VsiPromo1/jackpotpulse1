@@ -251,14 +251,18 @@ def show_top5(message):
         bot.send_message(message.chat.id, "<b>❌ Поки що немає гравців.</b>")
         return
 
-    text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>
-    for i, (uid, balance) in enumerate(top5, start=1):
-        try:
-            user_info = bot.get_chat(uid)
-            uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
-        except:
-            uname = f"<code>{uid}</code>"
-        text += f"{i}. {uname} — <b>{balance}</b> PulseCoins"
+text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>\n"
+
+for i, (uid, balance) in enumerate(top5, start=1):
+    try:
+        user_info = bot.get_chat(uid)
+        uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
+    except Exception:
+        uname = f"<code>{uid}</code>"
+    text += f"{i}. {uname} — <b>{balance}</b> PulseCoins\n"
+
+bot.send_message(message.chat.id, text, parse_mode='HTML')
+
 
     bot.send_message(message.chat.id, text)
 
