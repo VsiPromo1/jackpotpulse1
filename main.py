@@ -288,7 +288,6 @@ def lottery(message):
     user = get_user(user_id)
     tickets = user['tickets']
 
-    info = (
 text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>\n"
 
 for i, (uid, balance) in enumerate(top5, start=1):
@@ -296,8 +295,12 @@ for i, (uid, balance) in enumerate(top5, start=1):
         user_info = bot.get_chat(uid)
         uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
     except:
-        # Просто ігноруємо будь-яку помилку
         uname = f"<code>{uid}</code>"
+    
+    text += f"{i}. {uname} — {balance}🪙 PulseCoins\n"
+
+bot.send_message(message.chat.id, text, parse_mode='HTML')
+
     text += f"{i}. {uname} — <b>{balance}</b> PulseCoins\n"
 
 bot.send_message(message.chat.id, text, parse_mode='HTML')
