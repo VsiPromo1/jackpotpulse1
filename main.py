@@ -477,7 +477,11 @@ def show_stats(message):
     cursor.execute("SELECT COUNT(*) FROM users WHERE last_active > ?", (int(time.time()) - 86400,))
     active_today = cursor.fetchone()[0]
 
-    bot.send_message(message.chat.id, f"👥 Усього користувачів: {total}
+    bot.send_message(
+    message.chat.id,
+    f"📊 Усього користувачів: {total}\n🎟 У розіграші беруть участь: {participants_count}"
+)
+
 🕒 Активні за 24 год: {active_today}")
 
 # Фонова перевірка підписок кожні 2 години
