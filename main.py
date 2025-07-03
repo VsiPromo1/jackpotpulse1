@@ -197,7 +197,7 @@ def fart_card(message):
 
     save_user(user_id, last_card=now, last_active=now, tickets=tickets, balance=balance)
 
-bot.send_message(
+    bot.send_message(
     message.chat.id,
     f"<b>🃏 Твоя фарт-картка показує:</b>\n\n{text}",
     reply_markup=main_keyboard
@@ -215,18 +215,16 @@ def my_profile(message):
 
     save_user(user_id, last_active=int(time.time()))
 
-    bot.send_message(message.chat.id,
-        f"<b>📊 Твій профіль:</b>
+bot.send_message(
+    message.chat.id,
+    f"<b>📊 Твій профіль:</b>\n"
+    f"🪙 PulseCoins: {user['balance']}\n"
+    f"📆 Стрік: {user['streak']} дні(в)\n"
+    f"👥 Запрошено друзів: {user['referrals']}\n"
+    f"🎟 Квитків на розіграш: {user['tickets']}",
+    reply_markup=main_keyboard
+)
 
-"
-        f"🪙 PulseCoins: {user['balance']}
-"
-        f"📆 Стрік: {user['streak']} дні(в)
-"
-        f"👥 Запрошено друзів: {user['referrals']}
-"
-        f"🎟 Квитків на розіграш: {user['tickets']}",
-        reply_markup=main_keyboard)
 
 
 @bot.message_handler(func=lambda m: m.text == '👯 Запросити друга')
