@@ -157,17 +157,29 @@ def daily_bonus(message):
         bot.send_message(message.chat.id, "<b>🕐 Ти вже сьогодні отримав фарт! Завітай завтра 😉</b>", reply_markup=main_keyboard)
         return
 
+@bot.message_handler(commands=['bonus'])
+def give_bonus(message):
+    user_id = message.from_user.id
+    user = get_user(user_id)
+    now = int(time.time())
+
+    if now - user['last_bonus'] < 86400:
+        bot.send_message(message.chat.id, "<b>🕐 Ти вже сьогодні отримав фарт! Завітай завтра 😉</b>", reply_markup=main_keyboard)
+        return
+
     bonus = random.randint(15, 100)
     new_balance = user['balance'] + bonus
     new_streak = user['streak'] + 1
 
     save_user(user_id, balance=new_balance, last_bonus=now, streak=new_streak, last_active=now)
 
-bot.send_message(message.chat.id,
+    bot.send_message(message.chat.id,
     f"<b>🔮 Пульс удачі б’ється рівно 👊</b>\n"
     f"<b>+{bonus} PulseCoins 💸</b>\n"
     f"<b>🔥 Стрік:</b> {new_streak} дні(в)",
     reply_markup=main_keyboard)
+
+
 
 
 
