@@ -9,9 +9,7 @@ import sqlite3
 import shutil
 import logging
 
-TOKEN = os.getenv('TOKEN')
-if not TOKEN:
-    raise ValueError("❗️ TOKEN не знайдено в змінних середовища!")
+TOKEN = '7102389575:AAHMc_209ElVL5Qlv7-bLhCkMIiVD9T8Obw'
 
 bot = telebot.TeleBot(TOKEN, parse_mode='HTML')
 
