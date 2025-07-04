@@ -306,6 +306,13 @@ def lottery(message):
     user = get_user(user_id)
     tickets = user['tickets']
 
+cursor.execute("SELECT user_id, balance FROM users ORDER BY balance DESC LIMIT 5")
+top5 = cursor.fetchall()
+
+if not top5:
+    bot.send_message(message.chat.id, "❌ Немає гравців у топі.")
+    return
+
 text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>\n"
 
 for i, (uid, balance) in enumerate(top5, start=1):
@@ -314,14 +321,10 @@ for i, (uid, balance) in enumerate(top5, start=1):
         uname = f"@{user_info.username}" if user_info.username else f"<code>{uid}</code>"
     except:
         uname = f"<code>{uid}</code>"
-    
-    text += f"{i}. {uname} — {balance}🪙 PulseCoins\n"
 
-bot.send_message(message.chat.id, text, parse_mode='HTML')
+    text += f"{i}. {uname} — <b>{balance}</b>🪙 PulseCoins\n"
 
-text += f"{i}. {uname} — <b>{balance}</b> PulseCoins\n"
-
-bot.send_message(message.chat.id, text, parse_mode='HTML')
+bot.send_message(message.chat.id, text, parse_mode="HTML", reply_markup=main_keyboard)
 
 markup = telebot.types.InlineKeyboardMarkup()
 markup.add(telebot.types.InlineKeyboardButton("✅ Взяти участь", callback_data="join_lottery"))
