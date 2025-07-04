@@ -227,15 +227,21 @@ def my_profile(message):
 
     save_user(user_id, last_active=int(time.time()))
 
-bot.send_message(
-    message.chat.id,
-    f"<b>📊 Твій профіль:</b>\n"
-    f"🪙 PulseCoins: {user['balance']}\n"
-    f"📆 Стрік: {user['streak']} дні(в)\n"
-    f"👥 Запрошено друзів: {user['referrals']}\n"
-    f"🎟 Квитків на розіграш: {user['tickets']}",
-    reply_markup=main_keyboard
-)
+@bot.message_handler(commands=['profile'])
+def show_profile(message):
+    user_id = message.from_user.id
+    user = get_user(user_id)
+
+    bot.send_message(
+        message.chat.id,
+        f"<b>📊 Твій профіль:</b>\n"
+        f"🪙 PulseCoins: {user['balance']}\n"
+        f"📆 Стрік: {user['streak']} дні(в)\n"
+        f"👥 Запрошено друзів: {user['referrals']}\n"
+        f"🎟 Квитків на розіграш: {user['tickets']}",
+        reply_markup=main_keyboard
+    )
+
 
 
 
