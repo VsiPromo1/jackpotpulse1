@@ -311,7 +311,6 @@ top5 = cursor.fetchall()
 
 if not top5:
     bot.send_message(message.chat.id, "❌ Немає гравців у топі.")
-    return
 
 text = "<b>🏆 Топ 5 гравців за PulseCoins:</b>\n"
 
